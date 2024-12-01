@@ -38,3 +38,20 @@ resource "local_file" "car-3" {
   EOT
 }
 
+
+# Using resource attributes in the resource block.
+resource "random_pet" "my_pet" {
+  prefix = "Mr"
+  separator = "."
+  length = 1
+}
+
+resource "local_file" "pet" {
+  filename = "/opt/pets.txt"
+  content = "My favorite pet is ${random_pet.my_pet.id} \n"
+}
+
+# Using output variable.
+output "pet-name" {
+  value = random_pet.my_pet.id
+}
